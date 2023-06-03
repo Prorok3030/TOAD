@@ -1,6 +1,7 @@
 package com.example.toad.service;
 
 import com.example.toad.models.GeoMark;
+import com.example.toad.models.UserEntity;
 import com.example.toad.repo.GeoMarkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,9 @@ public class GeoMarkService {
 
     public GeoMark findById(Long id) {
         return geoMarkRepository.findById(id).orElse(null);
+    }
+
+    public List<GeoMark> findByUser(UserEntity user){
+       return geoMarkRepository.findByUser(user);
     }
 }

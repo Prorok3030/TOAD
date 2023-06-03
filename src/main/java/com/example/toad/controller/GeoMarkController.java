@@ -1,27 +1,30 @@
 package com.example.toad.controller;
 
 import com.example.toad.models.GeoMark;
+import com.example.toad.models.UserEntity;
 import com.example.toad.service.GeoMarkService;
+import com.example.toad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 public class GeoMarkController {
 
     @Autowired
-    public GeoMarkController(GeoMarkService geoMarkService){
+    public GeoMarkController(GeoMarkService geoMarkService, UserService userService){
         this.geoMarkService = geoMarkService;
+        this.userService = userService;
     }
     private final GeoMarkService geoMarkService;
+    private final UserService userService;
 
     @GetMapping("/home")
     public String home(){
@@ -29,7 +32,7 @@ public class GeoMarkController {
     }
 
     @GetMapping("/geoMarks")
-    public String findAll( Model model){
+    public String findAll(Model model){
         List<GeoMark> geoMarks = geoMarkService.findAll();
         model.addAttribute("geoMarks",geoMarks);
         return "geoMarks";
@@ -41,7 +44,9 @@ public class GeoMarkController {
     }
 
     @PostMapping("/geoMarkAdd")
-    public String createTest(GeoMark geoMark){
+    public String createTest(Principal principal, GeoMark geoMark){
+        UserEntity user = userService.findByUsername(principal.getName());
+        geoMark.setUser(user);
         geoMarkService.saveGeoMark(geoMark);
         return "redirect:/geoMarks";
     }
@@ -63,5 +68,13 @@ public class GeoMarkController {
     public String deleteGeoMark(@PathVariable("id") Long id){
         geoMarkService.deleteById(id);
         return "redirect:/geoMarks";
+    }
+
+    @GetMapping("/myGeoMarks")
+    public String userGeoMarks(Principal principal, Model model){
+        UserEntity user = userService.findByUsername(principal.getName());
+        List<GeoMark> geoMarks = geoMarkService.findByUser(user);
+        model.addAttribute("userGeoMarks",geoMarks);
+        return "/userGeoMarks";
     }
 }
