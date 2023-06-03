@@ -15,6 +15,11 @@ public class GeoMark {
     private String address;
     private String text;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
     public GeoMark() {
     }
 
@@ -50,4 +55,11 @@ public class GeoMark {
         this.text = text;
     }
 
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
 }

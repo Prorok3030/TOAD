@@ -26,6 +26,7 @@ public  class JsonContrller {
         return geoMarksList;
     }
 
+    //Возможно удалить
     @GetMapping("/getAllMarks")
     public ResponseEntity<Object> Get(){
         try{

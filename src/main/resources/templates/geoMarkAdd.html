@@ -16,15 +16,15 @@
     </script>
 
     <form action="/geoMarkAdd" th:object="${geoMark}" method="post">
-        <td>Coords</td>
-        <input type="text" th:field="*{coords}" id="coords"><br>
-        <td>Address</td>
+<!--        <td>Coords</td>-->
+        <input type="hidden" th:field="*{coords}" id="coords"><br>
+        <td>Адрес</td>
         <input type="text" th:field="*{address}" id="address"><br>
-        <td>Description</td>
+        <td>Описание</td>
         <input type="text" th:field="*{text}" placeholder="Input description" id="text"><br>
-        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="submit" class="btn btn-success">Подтвердить</button>
     </form> <br>
-    <a class="btn btn-primary" href="/geoMarks" role="button">Back</a>
+    <a class="btn btn-primary" href="/geoMarks" role="button">Назад</a>
 </div>
 </body>
 </html>

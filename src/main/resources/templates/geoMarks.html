@@ -7,7 +7,7 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<h1 th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
+<!--<h1 th:inline="text">Hello, <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>-->
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
@@ -19,7 +19,7 @@
     </script>
 </div>
 <div>
-    <h1>Список</h1>
+<!--    <h1>Список</h1>-->
     <a class="btn btn-primary" href="/geoMarkAdd" role="button">Добавить</a>
     <table class="table">
         <thead class="thead-light">

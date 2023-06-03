@@ -2,17 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:fragment="header">
-    <div class="d-flex flex-column flex-md-row align-items-center mx-2 my-1 pb-1 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Font_Awesome_5_solid_frog.svg/1024px-Font_Awesome_5_solid_frog.svg.png" alt="..." width="50">
-            <h3>&numsp;TOAD (Trash Over All District)</h3>
-        </a>
-        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-            <a sec:authorize="hasAuthority('ADMIN')" class="me-3 py-2 text-dark text-decoration-none" href="/users">Пользователи</a>
-            <a class="me-3 py-2 text-dark text-decoration-none" href="/home">Главная</a>
-            <a class="me-3 py-2 text-dark text-decoration-none" href="/geoMarks">Метки</a>
-            <a class="me-3 py-2 text-dark text-decoration-none" href="/">Профиль</a>
-            <a class="me-3 py-2 text-dark text-decoration-none" href="/">О приложении</a>
-        </nav>
+    <div class="container-fluid bg-success text-dark bg-opacity-50">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-1 text-dark">
+            <a href="/home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Font_Awesome_5_solid_frog.svg/1024px-Font_Awesome_5_solid_frog.svg.png" alt="..." width="50">
+                <h3>&numsp;TOAD (Trash Over All District)</h3>
+            </a>
+
+            <ul class="nav nav-pills">
+                <a class="me-3 py-2 text-dark text-decoration-none" href="/home">Главная</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="/geoMarks">Метки</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="/">Профиль</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="/">О приложении</a>
+                <a href="/geoMarks" class="btn btn-success" role="button">Sign in</a>
+            </ul>
+        </header>
     </div>
 </div>
