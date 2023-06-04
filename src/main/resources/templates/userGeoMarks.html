@@ -27,7 +27,7 @@
             <th scope="col">Description</th>
         </tr>
         </thead>
-        <tbody th:each="el : ${userGeoMarks}">
+        <tbody th:each="el : ${geoMarkPage.content}">
         <tr>
             <td th:text="${el.id}"/>
             <td th:text="${el.coords}"/>
@@ -38,6 +38,25 @@
         </tr>
         </tbody>
     </table>
+</div>
+<div th:if="${geoMarkPage.totalPages > 0}">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage < 2}? 'disabled' : ''">
+                <a class="page-link" th:href="@{/userGeoMarks(size=${geoMarkPage.size}, page=${currentPage - 1})}">Предыдущая</a>
+            </li>
+            <li class="page-item" th:each="pageNumber : ${pageNumbers}"
+                th:classappend="${pageNumber}==${currentPage}? 'active' : ''">
+                <a class="page-link"
+                   th:href="@{/userGeoMarks(size=${geoMarkPage.size}, page=${pageNumber})}"
+                   th:text=${pageNumber}>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == geoMarkPage.totalPages}? 'disabled' : ''">
+                <a class="page-link" th:href="@{/userGeoMarks(size=${geoMarkPage.size}, page=${currentPage + 1})}">Следующая</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 </body>
 </html>
