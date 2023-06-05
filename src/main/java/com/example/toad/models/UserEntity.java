@@ -1,10 +1,9 @@
 package com.example.toad.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -19,6 +18,12 @@ public class UserEntity {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_marks", joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "mark_id") } )
+    private Set<GeoMark> geoMarks = new HashSet<>(); //TODO Действительно ли нужен HashSet<>
 
     public UserEntity() {
     }
@@ -64,4 +69,11 @@ public class UserEntity {
         this.roles = roles;
     }
 
+    public Set<GeoMark> getGeoMarks() {
+        return geoMarks;
+    }
+
+    public void setGeoMarks(Set<GeoMark> geoMarks) {
+        this.geoMarks = geoMarks;
+    }
 }

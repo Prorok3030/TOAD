@@ -2,12 +2,12 @@ package com.example.toad.controller;
 
 import com.example.toad.models.GeoMark;
 import com.example.toad.models.UserEntity;
+import com.example.toad.repo.GeoMarkRepository;
 import com.example.toad.service.GeoMarkService;
 import com.example.toad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,12 +27,14 @@ import java.util.stream.IntStream;
 public class GeoMarkController {
 
     @Autowired
-    public GeoMarkController(GeoMarkService geoMarkService, UserService userService){
+    public GeoMarkController(GeoMarkService geoMarkService, UserService userService, GeoMarkRepository geoMarkRepository){
         this.geoMarkService = geoMarkService;
         this.userService = userService;
+        this.geoMarkRepository = geoMarkRepository;
     }
     private final GeoMarkService geoMarkService;
     private final UserService userService;
+    private final GeoMarkRepository geoMarkRepository;
 
     @GetMapping("/home")
     public String home(){
@@ -98,5 +102,14 @@ public class GeoMarkController {
         }
 
         return "/userGeoMarks";
+    }
+
+    @GetMapping("/geoMarkAddFav/{id}")
+    public String addFav (@PathVariable("id") Long id, Principal principal){
+        UserEntity user = userService.findByUsername(principal.getName());
+        GeoMark geoMark = geoMarkRepository.findById(id).get();
+        user.getGeoMarks().add(geoMark);
+        userService.save(user);
+        return "redirect:/geoMarks";
     }
 }

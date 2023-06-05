@@ -3,13 +3,12 @@ package com.example.toad.controller;
 import com.example.toad.models.Role;
 import com.example.toad.models.UserEntity;
 import com.example.toad.repo.RoleRepository;
-import com.example.toad.repo.UserRepository;
+import com.example.toad.service.GeoMarkService;
 import com.example.toad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -23,13 +22,15 @@ public class AuthController {
     private UserService userService;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private GeoMarkService geoMarkService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, UserService userService, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public AuthController(AuthenticationManager authenticationManager, UserService userService, RoleRepository roleRepository, PasswordEncoder passwordEncoder, GeoMarkService geoMarkService) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.geoMarkService = geoMarkService;
     }
 
 
@@ -48,7 +49,6 @@ public class AuthController {
         Role roles = roleRepository.findByName("USER").get();
         userEntity.setRoles(Collections.singletonList(roles));
         userService.save(userEntity);
-
         return "redirect:/login";
     }
 
