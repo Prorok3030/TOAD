@@ -25,8 +25,8 @@ public class GeoMarkService {
         return geoMarkRepository.findAll();
     }
 
-    public GeoMark saveGeoMark(GeoMark test){
-        return geoMarkRepository.save(test);
+    public GeoMark saveGeoMark(GeoMark geoMark){
+        return geoMarkRepository.save(geoMark);
     }
 
     public void deleteById(Long id){

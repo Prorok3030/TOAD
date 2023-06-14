@@ -13,9 +13,9 @@
 </div>
 
 <form method="post" th:object="${userEntity}">
-    <div><label> Имя: <input type="text" th:field="*{username}"/> </label>
+    <div><label> Логин: <input type="text" th:field="*{username}"/> </label>
         <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> Username error</div>
-    </div>
+    </div><br>
     <div><label> Пароль: <input type="password" th:field="*{password}"/> </label>
         <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> Password error</div>
     </div><br>

@@ -15,13 +15,27 @@
             src="/js/script.js">
     </script>
 
-    <form action="/geoMarkAdd" th:object="${geoMark}" method="post">
+    <form action="/geoMarkAdd" th:object="${geoMark}" method="post" enctype="multipart/form-data">
 <!--        <td>Coords</td>-->
         <input type="hidden" th:field="*{coords}" id="coords"><br>
-        <td>Адрес</td>
-        <input type="text" th:field="*{address}" id="address"><br>
-        <td>Описание</td>
-        <input type="text" th:field="*{text}" placeholder="Input description" id="text"><br>
+<!--        <td>Адрес</td>-->
+<!--        <input type="text" th:field="*{address}" id="address"><br>-->
+        <td>Дайти короткое название сообщению</td><br>
+        <input type="text" th:field="*{text}" placeholder="Введите название" id="text"><br>
+        <td>Опишите проблему</td><br>
+        <textarea th:field="*{text}" placeholder="Введите описание" id="text1"></textarea><br>
+        <td>Выберите категорию загрязнения</td><br>
+        <select th:field="*{category}">
+            <option th:each="categories : ${categories}" th:value="${categories.id}"
+                    th:text="${categories.name}"></option>
+        </select><br>
+        <td>Выберите степень загрязнения</td><br>
+        <select th:field="*{degree}">
+            <option th:each="degrees : ${degrees}" th:value="${degrees.id}"
+                    th:text="${degrees.name}"></option>
+        </select><br>
+        <td>Приложите фото</td><br>
+        <input type="file" name="file" multiple="multiple" accept="image/*" class="form-control-file"><br></p>
         <button type="submit" class="btn btn-success">Подтвердить</button>
     </form> <br>
     <a class="btn btn-primary" href="/geoMarks" role="button">Назад</a>

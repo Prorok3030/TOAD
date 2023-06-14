@@ -8,11 +8,13 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 <!--<h1 th:inline="text">Hello, <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>-->
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
+<!--<form th:action="@{/logout}" method="post">-->
+<!--    <input type="submit" value="Sign Out"/>-->
+<!--</form>-->
 
-    <div id="map_test" style="width: 500px; height: 500px; background-color: #333;" class="map"></div>
+    <link rel="stylesheet" href="css/map.css">
+<!--    <div id="map_test" style="width: 500px; height: 500px; background-color: #333;" class="map"></div>-->
+    <div id="map_test" class="map">
     <script src="https://api-maps.yandex.ru/2.1/?apikey=b697cb1f-7ae3-4b1e-93f5-64f2c190bdab&lang=ru_RU"></script>
     <script
             src="js/getAllMarks.js">
@@ -27,6 +29,7 @@
             <th scope="col">Id</th>
             <th scope="col">Coords</th>
             <th scope="col">Address</th>
+            <th scope="col">Photo</th>
             <th scope="col">Description</th>
         </tr>
         </thead>
@@ -35,6 +38,11 @@
             <td th:text="${el.id}"/>
             <td th:text="${el.coords}"/>
             <td th:text="${el.address}"/>
+            <td>
+            <div th:if="${el.filename != null}">
+                <img th:src="@{/img/{filename}(filename = ${el.filename})}">
+            </div>
+            </td>
             <td th:text="${el.text}"/>
             <td><a class="btn btn-primary" th:href="@{geoMarkEdit/{id}(id=${el.id})}" role="button">Редактировать</a></td>
             <td><a class="btn btn-danger" th:href="@{geoMarkAddFav/{id}(id=${el.id})}" role="button">В избранное</a></td>
