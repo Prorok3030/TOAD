@@ -17,13 +17,13 @@ public class UserEntity {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();//TODO Возможно переделать на HashSet<>
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_marks", joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "mark_id") } )
-    private Set<GeoMark> geoMarks = new HashSet<>(); //TODO Действительно ли нужен HashSet<>
+    private List<GeoMark> geoMarks = new ArrayList<>(); //TODO Действительно ли нужен HashSet<>
 
     public UserEntity() {
     }
@@ -69,11 +69,11 @@ public class UserEntity {
         this.roles = roles;
     }
 
-    public Set<GeoMark> getGeoMarks() {
+    public List<GeoMark> getGeoMarks() {
         return geoMarks;
     }
 
-    public void setGeoMarks(Set<GeoMark> geoMarks) {
+    public void setGeoMarks(List<GeoMark> geoMarks) {
         this.geoMarks = geoMarks;
     }
 }

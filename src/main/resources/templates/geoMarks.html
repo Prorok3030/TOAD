@@ -7,10 +7,10 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<!--<h1 th:inline="text">Hello, <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>-->
-<!--<form th:action="@{/logout}" method="post">-->
-<!--    <input type="submit" value="Sign Out"/>-->
-<!--</form>-->
+<h1 th:inline="text">Hello, <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 
     <link rel="stylesheet" href="css/map.css">
 <!--    <div id="map_test" style="width: 500px; height: 500px; background-color: #333;" class="map"></div>-->

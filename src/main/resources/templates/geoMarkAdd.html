@@ -18,8 +18,8 @@
     <form action="/geoMarkAdd" th:object="${geoMark}" method="post" enctype="multipart/form-data">
 <!--        <td>Coords</td>-->
         <input type="hidden" th:field="*{coords}" id="coords"><br>
-<!--        <td>Адрес</td>-->
-<!--        <input type="text" th:field="*{address}" id="address"><br>-->
+        <td>Адрес</td>
+        <input type="text" th:field="*{address}" id="address"><br>
         <td>Дайти короткое название сообщению</td><br>
         <input type="text" th:field="*{text}" placeholder="Введите название" id="text"><br>
         <td>Опишите проблему</td><br>

@@ -109,7 +109,7 @@ public class GeoMarkController {
                                @RequestParam("page") Optional<Integer> page,
                                @RequestParam("size") Optional<Integer> size){
         UserEntity user = userService.findByUsername(principal.getName());
-        List<GeoMark> geoMarks = geoMarkService.findByUser(user);
+        List<GeoMark> geoMarks = user.getGeoMarks();
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 

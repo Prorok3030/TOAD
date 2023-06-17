@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                         .loginPage("/login")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll());
+                .logout((logout) -> logout.logoutSuccessUrl("/home"));
 
         return http.build();
     }

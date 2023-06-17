@@ -36,6 +36,12 @@ public  class JsonContrller {
         List<GeoMark> userGeoMarksList = geoMarkService.findByUser(user);
         return userGeoMarksList;
     }
+    @GetMapping("/getUserFav")
+    public List<GeoMark> getUserFav(Principal principal){
+        UserEntity user = userService.findByUsername(principal.getName());
+        List<GeoMark> userGeoMarksList = user.getGeoMarks();
+        return userGeoMarksList;
+    }
 
     //Возможно удалить
     @GetMapping("/getAllMarks")

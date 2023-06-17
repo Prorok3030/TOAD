@@ -5,6 +5,7 @@ import com.example.toad.models.UserEntity;
 import com.example.toad.repo.GeoMarkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,14 @@ public class GeoMarkService {
        return geoMarkRepository.findByUser(user);
     }
 
+    public Page<GeoMark> findUserFav(Pageable pageable, UserEntity user){
+        List<GeoMark> geoMarks = user.getGeoMarks();
+        final int start = (int)pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), geoMarks.size());
+        final Page<GeoMark> page = new PageImpl<>(geoMarks.subList(start, end), pageable, geoMarks.size());
+        return page;
+    }
+
     public Page<GeoMark> findPaginated(Pageable pageable, List<GeoMark> geoMarks, UserEntity user){
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
@@ -56,9 +65,10 @@ public class GeoMarkService {
         }
 
         Pageable pageable1 = PageRequest.of(currentPage,pageSize);
+        List<GeoMark> geoMarks1 = user.getGeoMarks();
 
         Page<GeoMark> geoMarkPage
-                = geoMarkRepository.findByUser(pageable1, user);
+                = findUserFav(pageable1, user);
 
         return geoMarkPage;
     }
